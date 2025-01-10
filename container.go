@@ -436,12 +436,12 @@ func (c *ContainerRequest) BuildOptions() (types.ImageBuildOptions, error) {
 		ForceRemove: true,
 	}
 
+	buildOptions.BuildArgs = c.GetBuildArgs()
 	if c.FromDockerfile.BuildOptionsModifier != nil {
 		c.FromDockerfile.BuildOptionsModifier(&buildOptions)
 	}
 
 	// apply mandatory values after the modifier
-	buildOptions.BuildArgs = c.GetBuildArgs()
 	buildOptions.Dockerfile = c.GetDockerfile()
 
 	// Make sure the auth configs from the Dockerfile are set right after the user-defined build options.
